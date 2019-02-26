@@ -20,6 +20,8 @@ public class Animal {
 
     private String animaltype;
 
+    private String animalname;
+
     @ManyToMany
     @JoinTable(name = "animalzoos",
             joinColumns = {@JoinColumn(name = "animalid")},
