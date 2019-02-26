@@ -1,13 +1,8 @@
 package com.lambdaschool.javazoos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "telephone")
 public class Telephone {
@@ -24,4 +19,39 @@ public class Telephone {
     @JoinColumn(name = "zooid")
     @JsonIgnoreProperties("telephones")
     private Zoo zoo;
+
+    public Telephone() {
+    }
+
+    public long getPhoneid() {
+        return phoneid;
+    }
+
+    public void setPhoneid(long phoneid) {
+        this.phoneid = phoneid;
+    }
+
+    public String getPhonetype() {
+        return phonetype;
+    }
+
+    public void setPhonetype(String phonetype) {
+        this.phonetype = phonetype;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public Zoo getZoo() {
+        return zoo;
+    }
+
+    public void setZoo(Zoo zoo) {
+        this.zoo = zoo;
+    }
 }

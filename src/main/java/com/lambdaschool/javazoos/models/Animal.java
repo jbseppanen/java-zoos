@@ -1,15 +1,12 @@
 package com.lambdaschool.javazoos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@NoArgsConstructor
+
 @Entity
 @Table(name = "animal")
 public class Animal {
@@ -20,8 +17,6 @@ public class Animal {
 
     private String animaltype;
 
-    private String animalname;
-
     @ManyToMany
     @JoinTable(name = "zooanimals",
             joinColumns = {@JoinColumn(name = "animalid")},
@@ -29,4 +24,30 @@ public class Animal {
     @JsonIgnoreProperties("animals")
     private Set<Zoo> zoos  = new HashSet<>();
 
+    public Animal() {
+    }
+
+    public long getAnimalid() {
+        return animalid;
+    }
+
+    public void setAnimalid(long animalid) {
+        this.animalid = animalid;
+    }
+
+    public String getAnimaltype() {
+        return animaltype;
+    }
+
+    public void setAnimaltype(String animaltype) {
+        this.animaltype = animaltype;
+    }
+
+    public Set<Zoo> getZoos() {
+        return zoos;
+    }
+
+    public void setZoos(Set<Zoo> zoos) {
+        this.zoos = zoos;
+    }
 }

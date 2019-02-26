@@ -4,5 +4,5 @@ import com.lambdaschool.javazoos.models.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
-    Animal findByAnimalnameEqualsIgnoreCase(String name);
+    Animal findByAnimaltypeEqualsIgnoreCase(String name);
 }

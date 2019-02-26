@@ -25,6 +25,6 @@ public class AnimalController {
 
     @GetMapping(value = "/{name}")
     public Animal getAnimalByName(@PathVariable String name) {
-        return animalRepo.findByAnimalnameEqualsIgnoreCase(name);
+        return animalRepo.findByAnimaltypeEqualsIgnoreCase(name);
     }
 }
