@@ -85,6 +85,7 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.9.8</version>
         </dependency>
+
     </dependencies>
 
     <build>
