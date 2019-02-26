@@ -5,21 +5,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "zoo")
-public class Zoo {
+@Table(name = "telephone")
+public class Telephone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long zooid;
+    private long phoneid;
 
-    private String zooname;
+    private String phonetype;
 
-    @OneToMany(mappedBy = "zoo")
-    @JsonIgnoreProperties("zoo")
-    private Set<Telephone> telephones  = new HashSet<>();
+    private String phonenumber;
+
+    @ManyToOne
+    @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties("telephones")
+    private Zoo zoo;
+
+
 }
