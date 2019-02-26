@@ -24,6 +24,4 @@ public class Telephone {
     @JoinColumn(name = "zooid")
     @JsonIgnoreProperties("telephones")
     private Zoo zoo;
-
-
 }
