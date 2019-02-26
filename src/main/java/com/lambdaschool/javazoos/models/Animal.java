@@ -23,7 +23,7 @@ public class Animal {
     private String animalname;
 
     @ManyToMany
-    @JoinTable(name = "animalzoos",
+    @JoinTable(name = "zooanimals",
             joinColumns = {@JoinColumn(name = "animalid")},
             inverseJoinColumns = {@JoinColumn(name = "zooid")})
     @JsonIgnoreProperties("animals")
