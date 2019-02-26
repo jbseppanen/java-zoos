@@ -23,7 +23,7 @@ public class Zoo {
     @JsonIgnoreProperties("zoo")
     private Set<Telephone> telephones  = new HashSet<>();
 
-    @ManyToMany(mappedBy = "zoo")
-    @JsonIgnoreProperties("zoo")
+    @ManyToMany(mappedBy = "zoos")
+    @JsonIgnoreProperties("zoos")
     private Set<Animal> animals = new HashSet<>();
 }
