@@ -1,9 +1,6 @@
 package com.lambdaschool.javazoos.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import com.lambdaschool.javazoos.models.Animal;
 import com.lambdaschool.javazoos.models.Telephone;
 import com.lambdaschool.javazoos.models.Zoo;
@@ -14,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Field;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -91,12 +89,75 @@ public class AdminController {
         Optional<Animal> foundAnimal = animalRepo.findById(animalid);
 
         if (foundZoo.isPresent() && foundAnimal.isPresent()) {
-           Animal animal = foundAnimal.get();
+            Animal animal = foundAnimal.get();
             animal.getZoos().add(foundZoo.get());
             animalRepo.save(animal);
             return zooanimal;
         } else {
             return null;
         }
+    }
+
+    @DeleteMapping(value = "/zoos/{id}")
+    public String deleteZooById(@PathVariable long id) {
+        Optional<Zoo> foundZoo = zooRepo.findById(id);
+        if (foundZoo.isPresent()) {
+            for (Telephone phone : foundZoo.get().getTelephones()) {
+                telephoneRepo.delete(phone);
+            }
+            zooRepo.deleteAnimalsFromzooanimalsByZooId(id);
+            zooRepo.deleteById(id);
+            return "{" + "\"Success\":" + "\"Zoo has been deleted.\"" + "}";
+        } else {
+            return "{" + "\"Error\":" + "\"Zoo not found to delete.\"" + "}";
+        }
+
+    }
+
+    @DeleteMapping(value = "/phones/{id}")
+    public String deleteTelephoneById(@PathVariable long id) {
+        Optional<Telephone> foundTelephone = telephoneRepo.findById(id);
+        if (foundTelephone.isPresent()) {
+            telephoneRepo.delete(foundTelephone.get());
+            return "{" + "\"Success\":" + "\"Telephone has been deleted.\"" + "}";
+        } else {
+            return "{" + "\"Error\":" + "\"Phone not found to delete.\"" + "}";
+        }
+    }
+
+    @DeleteMapping(value = "/animals/{id}")
+    public String deleteAnimalById(@PathVariable long id) {
+        Optional<Animal> foundAnimal = animalRepo.findById(id);
+        if (foundAnimal.isPresent()) {
+            animalRepo.deleteById(id);
+            return "{" + "\"Success\":" + "\"Animal has been deleted.\"" + "}";
+        } else {
+            return "{" + "\"Error\":" + "\"Animal not found to delete.\"" + "}";
+        }
+    }
+
+    @DeleteMapping(value = "/zoos/{zooid}/animals/{animalid}")
+    public String removeAnimalByIdFromZooById(@PathVariable long zooid, @PathVariable long animalid) {
+        Optional<Zoo> foundZoo = zooRepo.findById(zooid);
+        Optional<Animal> foundAnimal = animalRepo.findById(animalid);
+
+        if (foundZoo.isPresent() && foundAnimal.isPresent()) {
+            Animal animal = foundAnimal.get();
+            animal.getZoos().remove(foundZoo.get());
+            animalRepo.save(animal);
+            return "{" + "\"Success\":" + "\"Animal has been removed from zoo.\"" + "}";
+        } else if (!foundZoo.isPresent()){
+            return "{" + "\"Error\":" + "\"Zoo not found to delete animal from.\"" + "}";
+        } else if (!foundAnimal.isPresent()) {
+            return "{" + "\"Error\":" + "\"Animal not found to remove from zoo.\"" + "}";
+        } else {
+            return "{" + "\"Error\":" + "\"Unknown error.\"" + "}";
+        }
+
+    }
+
+    @GetMapping(value = "/phones")
+    public List<Telephone> listAllPhones() {
+        return telephoneRepo.findAll();
     }
 }

@@ -27,4 +27,5 @@ public class ZooController {
     public Zoo getZooByName(@PathVariable String name) {
         return zooRepo.findByZoonameEqualsIgnoreCase(name);
     }
+
 }

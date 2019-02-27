@@ -17,7 +17,7 @@ public class Zoo {
 
     @OneToMany(mappedBy = "zoo")
     @JsonIgnoreProperties("zoo")
-    private Set<Telephone> telephones  = new HashSet<>();
+    private Set<Telephone> telephones = new HashSet<>();
 
     @ManyToMany(mappedBy = "zoos")
     @JsonIgnoreProperties("zoos")
