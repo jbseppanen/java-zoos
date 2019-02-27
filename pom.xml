@@ -81,6 +81,12 @@
             <version>2.9.8</version>
         </dependency>
 
+        <!--localhost:8080/actuator/health or other endpoints-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
